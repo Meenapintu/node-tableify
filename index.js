@@ -73,7 +73,7 @@ function tableify(obj, columns, parents) {
 
             obj.forEach(function (val, ix) {
                 cols.push(ix);
-                buf.push('<tr>', '<td' + getClass(val) + '>', tableify(val, cols, parents), '</td>', '</tr>');
+                buf.push('<tr>', '<td id='+val+'' + getClass(val) + '>', tableify(val, cols, parents), '</td>', '</tr>');
             });
 
             buf.push('</tbody>','</table>');
@@ -85,7 +85,7 @@ function tableify(obj, columns, parents) {
             buf.push('<table>');
 
             Object.keys(obj).forEach(function (key) {
-                buf.push('<tr>', '<th' + getClass(obj[key]) + '>', key, '</th>', '<td' + getClass(obj[key]) + '>', tableify(obj[key], false, parents), '</td>', '</tr>');
+                buf.push('<tr>', '<th id='+key+'' + getClass(obj[key]) + '>', key, '</th>', '<td class='+key+' id='+key+'value'  + getClass(obj[key]) + '>', tableify(obj[key], false, parents), '</td>', '</tr>');
             });
 
             buf.push('</table>');
@@ -93,10 +93,10 @@ function tableify(obj, columns, parents) {
         else {
             columns.forEach(function (key) {
                 if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
-                    buf.push('<td' + getClass(obj[key]) + '>', tableify(obj[key], false, parents), '</td>');
+                    buf.push('<td class='+key+'' + getClass(obj[key]) + '>', tableify(obj[key], false, parents), '</td>');
                 }
                 else {
-                    buf.push('<td' + getClass(obj[key]) + '>', tableify(obj[key], columns, parents), '</td>');
+                    buf.push('<td class='+key+'' + getClass(obj[key]) + '>', tableify(obj[key], columns, parents), '</td>');
                 }
             });
         }
